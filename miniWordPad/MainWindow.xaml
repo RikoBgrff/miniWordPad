@@ -1,0 +1,34 @@
+﻿<Window x:Class="miniWordPad.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:miniWordPad"
+        mc:Ignorable="d"
+        Title="WordPad" Height="450" Width="800" WindowStartupLocation="CenterScreen"  >
+    <Border BorderBrush="BlueViolet" BorderThickness="1" CornerRadius="8">
+        <Grid>
+        <WrapPanel Background="BlueViolet" Margin="0,0,0,339">
+            <TextBox x:Name="FilePathTxtBx" Width="210" Height="35" Margin="20,22"/>
+            <Button x:Name="OpenFileBtn" Margin="25" FontFamily="Yu Gothic" FontSize="16"  Content="Open" Click="OpenFileBtn_Click" ></Button>
+            <CheckBox Content="Auto Save" Foreground="White" FontSize="20" Margin="10" Height="28" Width="118"/>
+            <Button x:Name="CutBtn" Height="35" Width="50" FontFamily="Yu Gothic" FontSize="16" Content="Cut"/>
+            <Button x:Name="CopyBtn" Height="35" Width="50" FontFamily="Yu Gothic" FontSize="16" Content="Copy"/>
+            <Button x:Name="PasteBtn" Height="35" Width="50" FontFamily="Yu Gothic" FontSize="16" Content="Paste"/>
+            <Button x:Name="SelectAllBtn" Height="35" Width="80" FontFamily="Yu Gothic" FontSize="16" Content="Select All"/>
+
+        </WrapPanel>
+        <TextBlock Margin="5,79,710,303" FontSize="25">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.028"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>Text:</TextBlock>
+        <TextBox Margin="0,127,0,0" FontSize="25" FontFamily="Yu Gothic"/>
+        
+    </Grid>
+      </Border>
+</Window>
