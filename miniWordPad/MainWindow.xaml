@@ -5,30 +5,181 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:miniWordPad"
         mc:Ignorable="d"
-        Title="WordPad" Height="450" Width="800" WindowStartupLocation="CenterScreen"  >
-    <Border BorderBrush="BlueViolet" BorderThickness="1" CornerRadius="8">
-        <Grid>
-        <WrapPanel Background="BlueViolet" Margin="0,0,0,339">
-            <TextBox x:Name="FilePathTxtBx" Width="210" Height="35" Margin="20,22"/>
-            <Button x:Name="OpenFileBtn" Margin="25" FontFamily="Yu Gothic" FontSize="16"  Content="Open" Click="OpenFileBtn_Click" ></Button>
-            <CheckBox Content="Auto Save" Foreground="White" FontSize="20" Margin="10" Height="28" Width="118"/>
-            <Button x:Name="CutBtn" Height="35" Width="50" FontFamily="Yu Gothic" FontSize="16" Content="Cut"/>
-            <Button x:Name="CopyBtn" Height="35" Width="50" FontFamily="Yu Gothic" FontSize="16" Content="Copy"/>
-            <Button x:Name="PasteBtn" Height="35" Width="50" FontFamily="Yu Gothic" FontSize="16" Content="Paste"/>
-            <Button x:Name="SelectAllBtn" Height="35" Width="80" FontFamily="Yu Gothic" FontSize="16" Content="Select All"/>
+        Title="WordPad" Height="700" Width="1000" WindowStartupLocation="CenterScreen"  Background="Transparent" WindowStyle="None"  AllowsTransparency="True">
+    <Window.Resources>
 
-        </WrapPanel>
-        <TextBlock Margin="5,79,710,303" FontSize="25">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.028"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </TextBlock.RenderTransform>Text:</TextBlock>
-        <TextBox Margin="0,127,0,0" FontSize="25" FontFamily="Yu Gothic"/>
-        
-    </Grid>
-      </Border>
+        <Style TargetType="CheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal">
+                            <Grid >
+                                <Border Width="45" Height="20" Background="LightGray" CornerRadius="10" Margin="5,0"></Border>
+                                <Border x:Name="button" Height="25" Width="25" CornerRadius="12.5" HorizontalAlignment="Left"  ></Border>
+                            </Grid>
+                            <ContentPresenter x:Name="content" Margin="10,0,0,0" Content="{TemplateBinding Content}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="right">
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="button" Duration="0:0:0.4" From="0,0,0,0" To="28,0,0,0" >
+                                    <ThicknessAnimation.EasingFunction>
+                                        <CircleEase EasingMode="EaseOut"/>
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
+                            </Storyboard>
+                            <Storyboard x:Key="left">
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin" Storyboard.TargetName="button" Duration="0:0:0.4" From="28,0,0,0" To="0,0,0,0" >
+                                    <ThicknessAnimation.EasingFunction>
+                                        <CircleEase EasingMode="EaseOut"/>
+                                    </ThicknessAnimation.EasingFunction>
+                                </ThicknessAnimation>
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Trigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="leftt"></RemoveStoryboard>
+                                    <BeginStoryboard Storyboard="{StaticResource right}" x:Name="rightt" ></BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="button" Property="Background" Value="#757575"></Setter>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Trigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="rightt"></RemoveStoryboard>
+                                    <BeginStoryboard Storyboard="{StaticResource left}" x:Name="leftt" ></BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="button" Property="Background" Value="#20BF55"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border BorderBrush="#6E0D25" BorderThickness="20" CornerRadius="35">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <WrapPanel Background="#6E0D25" Margin="0,0,0,339">
+                <TextBlock
+                    x:Name="FilePathTxtBx" 
+                    Width="210" Height="35"
+                    Margin="20,22"
+                    FontSize="17"
+                    Foreground="#FFF4D6CC"
+                    />
+                <Button 
+                    x:Name="OpenFileBtn"
+                        Click="OpenFileBtn_Click" 
+                        Margin="2" 
+                        FontFamily="Yu Gothic" 
+                        FontSize="16" 
+                        Content="Open" 
+                        Height="39"
+                        Foreground="Black"
+                        Style="{StaticResource RoundButtonTemplate}" 
+                        BorderBrush="#fff" 
+                        Background="#FFF4D6CC" 
+                        Width="65"
+                    />
+                <Button 
+                    x:Name="SaveBtn" 
+                        Margin="2" 
+                        FontFamily="Yu Gothic" 
+                        FontSize="16" 
+                        Content="Save" 
+                        Height="39"
+                        Foreground="Black"
+                        Style="{StaticResource RoundButtonTemplate}" 
+                        BorderBrush="#fff" 
+                        Background="#FFF4D6CC" 
+                        Width="65" Click="SaveBtn_Click_1"
+                    />
+                <Button
+                    x:Name="CutBtn" 
+                    Click="CutBtn_Click"
+                        Margin="2" 
+                        FontFamily="Yu Gothic" 
+                        FontSize="16" 
+                        Content="Cut" 
+                        Height="39"
+                        Foreground="Black"
+                        Style="{StaticResource RoundButtonTemplate}" 
+                        BorderBrush="#fff" 
+                        Background="#FFF4D6CC" 
+                        Width="65"
+                    
+                    />
+                <Button
+                    x:Name="CopyBtn"
+                    Click="CopyBtn_Click"
+                    Margin="2" 
+                    FontFamily="Yu Gothic" 
+                    FontSize="16" 
+                    Content="Copy" 
+                    Height="39"
+                    Foreground="Black"
+                    Style="{StaticResource RoundButtonTemplate}" 
+                    BorderBrush="#fff" 
+                    Background="#FFF4D6CC" 
+                    Width="65"
+                    
+                    />
+                <Button
+                   x:Name="PasteBtn"
+                   Click="PasteBtn_Click"
+                   Margin="2" 
+                   FontFamily="Yu Gothic" 
+                   FontSize="16" 
+                   Content="Paste" 
+                   Height="39"
+                   Foreground="Black"
+                   Style="{StaticResource RoundButtonTemplate}" 
+                   BorderBrush="#fff" 
+                   Background="#FFF4D6CC" 
+                   Width="65"
+                     />
+                <Button
+                   x:Name="SelectAllBtn" 
+                   Click="SelectAllBtn_Click"
+                   Margin="2" 
+                   FontFamily="Yu Gothic" 
+                   FontSize="16" 
+                   Content="Select All" 
+                   Height="39"
+                   Foreground="Black"
+                   Style="{StaticResource RoundButtonTemplate}" 
+                   BorderBrush="#fff" 
+                   Background="#FFF4D6CC" 
+                   Width="86"
+                    />
+                <CheckBox 
+                    x:Name="AutoSave"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="21" 
+                    Foreground="#FFF4D6CC" 
+                    FontFamily="Yu Gothic"
+                    Checked="AutoSave_Checked" Background="#FFF4D6CC"
+                    >Auto Save</CheckBox>
+            </WrapPanel>
+            <Button 
+            Style="{StaticResource RoundButtonTemplate}"
+            BorderBrush="#fff"
+            Name="ExitBtn"
+            Content="X"
+            Click="Button_Click" 
+            Margin="885,11,14,603" 
+            FontSize="20" Background="#6E0D25"
+                />
+            <TextBox   Name="TextTxtBx" Margin="0,71,0,0" FontSize="25" FontFamily="Montserrat" TextChanged="TextTxtBx_TextChanged" Background="#FFF4D6CC">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+        </Grid>
+    </Border>
+
 </Window>
+   
